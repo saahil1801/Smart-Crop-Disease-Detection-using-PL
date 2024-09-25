@@ -1,0 +1,12 @@
+Flask
+numpy
+pandas
+opencv-python
+scikit-learn
+pandas
+onnx
+pytorch_lightning
+onnxruntime
+torchvision
+numpy
+pandas
