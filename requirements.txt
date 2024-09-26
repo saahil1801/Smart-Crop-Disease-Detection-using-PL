@@ -10,3 +10,6 @@ onnxruntime
 torchvision
 numpy
 pandas
+torch
+scikit-learn
+dvc_s3
