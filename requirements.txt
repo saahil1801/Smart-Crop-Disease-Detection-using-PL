@@ -13,3 +13,4 @@ pandas
 torch
 scikit-learn
 dvc_s3
+pytest
