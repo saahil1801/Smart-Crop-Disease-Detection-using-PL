@@ -9,6 +9,9 @@ COPY . /app
 
 # Install system dependencies for ONNX and other requirements
 RUN apt-get update && apt-get install -y \
+    gnupg2 \
+    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 648ACFD622F3D138 \
+    && apt-get update && apt-get install -y \
     libgl1-mesa-glx \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
@@ -16,7 +19,9 @@ RUN apt-get update && apt-get install -y \
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Set Python Path for the application
 ENV PYTHONPATH="/app/src:$PYTHONPATH"
+
 # Expose the Flask app port (default Flask port is 5000, but we're using 5001)
 EXPOSE 5001
 
