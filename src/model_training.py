@@ -51,6 +51,7 @@ class PlantModel(pl.LightningModule):
     def training_step(self, batch, batch_idx):
         x, y = batch
         y_hat = self(x)
+        y = y.long()
         loss = self.criterion(y_hat, y)
         self.log('train_loss', loss)
         return loss
@@ -58,6 +59,7 @@ class PlantModel(pl.LightningModule):
     def validation_step(self, batch, batch_idx):
         x, y = batch
         y_hat = self(x)
+        y = y.long()
         val_loss = self.criterion(y_hat, y)
         self.log('val_loss', val_loss)
         return val_loss
@@ -87,8 +89,8 @@ def train_model():
     train_dataset = PlantDataset(X_train, y_train, transform=transform)
     val_dataset = PlantDataset(X_val, y_val, transform=transform)
 
-    train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
-    val_loader = DataLoader(val_dataset, batch_size=32)
+    train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True,num_workers=0)
+    val_loader = DataLoader(val_dataset, batch_size=32,num_workers=0)
 
     # Model and training setup
     input_shape = (3, IMAGE_SIZE[0], IMAGE_SIZE[1])
