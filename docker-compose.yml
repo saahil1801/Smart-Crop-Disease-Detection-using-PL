@@ -1,0 +1,28 @@
+# docker-compose.yml
+
+version: '3'
+
+services:
+  training:
+    build:
+      context: .
+      dockerfile: Dockerfile.training
+    volumes:
+      - model_data:/app/model_data
+    shm_size: '2gb' 
+    command: ["python", "/app/src/model_training.py"]
+
+  inference:
+    build:
+      context: .
+      dockerfile: Dockerfile.inference
+    volumes:
+      - model_data:/app/model_data
+    ports:
+      - "5001:5001"
+    depends_on:
+      - training
+    shm_size: '2gb' 
+
+volumes:
+  model_data:
